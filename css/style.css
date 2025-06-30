@@ -1,0 +1,88 @@
+    @import url(norm.css);
+    @import url(gallery.css);
+
+    * {
+        /* Farben */
+    --primaryColor: #0F232D;
+    --secondaryColor: #091720;
+    --textColor: #ffffff;
+    }
+    
+    
+    
+    header {
+        color: var(--textColor);
+        padding: 8px 24px;
+        width: 100%;
+        background-color: var(--primaryColor);
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        top: 0px;
+        z-index: 10000;
+    }
+
+    footer {
+        color: var(--textColor);
+        padding: 8px 24px;
+        width: 100%;
+        background-color: var(--primaryColor);
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: fixed;
+        bottom: 0px;
+    }
+
+    .social-icons {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .social-icons img {
+        height: 24px;
+    }
+
+    .logo {
+        width: 180px;
+    }
+    
+    main {
+        display: flex;
+        justify-content: center;
+        color: var(--textColor);
+        padding: 8px 24px;
+        width: 100%;
+        min-height: 100vh;
+        background-color: var(--secondaryColor);
+    }
+
+    .content {
+        max-width: 1440px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    main h1 {
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        font-size: 48px;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+    
+    nav {
+        color: rgb(34, 32, 38);
+        padding: 8px 16px;
+        width: 100%;
+        background-color: rgb(175, 175, 175);
+    }
