@@ -1,17 +1,17 @@
-// Arrays für Bilder und Beschreibungen
+// Arrays für Bilder und Beschreibungen 'Wildpark Poing'
 let randomPicture = [
-    'img/Reh.JPG',
-    'img/_DSC0047.JPG',
-    'img/_DSC0091.JPG',
-    'img/_DSC0108.JPG',
-    'img/_DSC0189.JPG',
-    'img/_DSC0212.JPG',
-    'img/_DSC0239.JPG',
-    'img/_DSC0260.JPG',
-    'img/_DSC0281.JPG',
-    'img/_DSC0548.JPG',
-    'img/_DSC0604.JPG',
-    'img/_DSC0618.JPG'
+    'img/wildpark_poing/Reh.JPG',
+    'img/wildpark_poing/_DSC0047.JPG',
+    'img/wildpark_poing/_DSC0091.JPG',
+    'img/wildpark_poing/_DSC0108.JPG',
+    'img/wildpark_poing/_DSC0189.JPG',
+    'img/wildpark_poing/_DSC0212.JPG',
+    'img/wildpark_poing/_DSC0239.JPG',
+    'img/wildpark_poing/_DSC0260.JPG',
+    'img/wildpark_poing/_DSC0281.JPG',
+    'img/wildpark_poing/_DSC0548.JPG',
+    'img/wildpark_poing/_DSC0604.JPG',
+    'img/wildpark_poing/_DSC0618.JPG'
 ];
 
 let randomDescription = [
@@ -29,20 +29,87 @@ let randomDescription = [
     "Luchs"
 ];
 
-// Render-Funktion mit korrekter Initialisierung
-function render() {
-    let contentRef = document.getElementById('content');
-    contentRef.innerHTML = ''; // Zuerst alle vorhandenen Elemente entfernen
-    
-    for (let index = 0; index < randomPicture.length; index++) {
-        contentRef.innerHTML += `<div class="gallery-item">
-            <img src="${randomPicture[index]}" alt="${randomDescription[index]}">
-            <span class="image-details">${randomDescription[index]}</span>
-        </div>`;
+// Arrays für Bilder und Beschreibungen 'Kreta'
+let randomPictureSecond = [
+    'img/kreta/IMG_5312.jpeg',
+    'img/kreta/IMG_5315.jpeg',
+    'img/kreta/IMG_5317.jpeg',
+    'img/kreta/IMG_5324.jpeg',
+    'img/kreta/IMG_5325.jpeg',
+    'img/kreta/IMG_5326.jpeg',
+    'img/kreta/IMG_5410.jpeg',
+    'img/kreta/IMG_5411.jpeg',
+    'img/kreta/IMG_5401.jpeg',
+    'img/kreta/IMG_5413.jpeg',
+    'img/kreta/IMG_5419.jpeg',
+    'img/kreta/IMG_5420.jpeg'
+];
+
+let randomDescriptionSecond = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12"
+];
+
+// Filter für Alben
+
+let currentPicture = [];
+
+let currentDescription = [];
+
+// Initialisierungsfunktion
+function initializeGallery() {
+    renderFiltered(1); // Standardalbum laden
+}
+
+// Event Listener für DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeGallery();
+});
+
+
+// Filter-Funktion
+function renderFiltered(index) {
+    if (index == 1) {
+        arrPicture = randomPicture;
+        arrDescription = randomDescription;
+        render()
+    }
+    if (index == 2) {
+        arrPicture = randomPictureSecond;
+        arrDescription = randomDescriptionSecond;
+        render()
     }
 }
 
-// DOMContentLoaded Event-Handler
+// Render-Funktion
+function render() {
+    let contentRef = document.getElementById('gallery-content');
+    contentRef.innerHTML = ''; // Zuerst alle vorhandenen Elemente entfernen
+    
+    for (let index = 0; index < arrPicture.length; index++) {
+        contentRef.innerHTML += getNotesTemplate(index, arrPicture, arrDescription);
+    }
+}
+
+// Template-Funktion
+function getNotesTemplate(index) {
+    return `<div class="gallery-item">
+            <img src="${arrPicture[index]}" alt="${arrDescription[index]}">
+            <span class="image-details">${arrDescription[index]}</span>
+        </div>`
+}
+
+// Event Listener für DOMContentLoaded für Overlay
 document.addEventListener('DOMContentLoaded', function () {
     render(); // Galerie zuerst rendern
     
@@ -54,13 +121,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const pagination = document.querySelector('.pagination');
     
     // Erst nach dem Rendering die items-Variable initialisieren
-    const items = Array.from(document.querySelectorAll('#content .gallery-item'));
+    const items = Array.from(document.querySelectorAll('#gallery-content .gallery-item'));
     
     let currentIndex = 0;
 
     // Klick auf Galerie-Bilder
     gallery.addEventListener('click', function (e) {
-        const item = e.target.closest('#content .gallery-item');
+        const item = e.target.closest('#gallery-content .gallery-item');
         if (!item) return;
         
         currentIndex = items.indexOf(item);

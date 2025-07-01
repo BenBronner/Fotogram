@@ -11,7 +11,7 @@
     padding: 20px;
 }
 
-#content {
+#gallery-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
