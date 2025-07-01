@@ -47,10 +47,12 @@
 
     .social-icons img {
         height: 24px;
+        cursor: pointer;
     }
 
     .logo {
         width: 180px;
+        cursor: pointer;
     }
 
     main {
