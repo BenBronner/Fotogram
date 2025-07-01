@@ -60,58 +60,55 @@ let randomDescriptionSecond = [
     "Hemezzo - Mochlos"
 ];
 
-// Filter für Alben
-
-let currentPicture = [];
-
-let currentDescription = [];
+// Globale Variablen für die Galerie
+let currentAlbum = 1; // Aktuelles Album (1 = Wildpark Poing, 2 = Kreta)
+let items = []; // Liste aller Galerie-Elemente
+let currentIndex = 0; // Aktuelles Bild im Overlay
 
 // Initialisierungsfunktion
 function initializeGallery() {
     renderFiltered(1); // Standardalbum laden
 }
 
-// Event Listener für DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeGallery();
-});
-
-
-// Filter-Funktion
-function renderFiltered(index) {
-    if (index == 1) {
-        arrPicture = randomPicture;
-        arrDescription = randomDescription;
-        render()
-    }
-    if (index == 2) {
-        arrPicture = randomPictureSecond;
-        arrDescription = randomDescriptionSecond;
-        render()
-    }
-}
-
-// Render-Funktion
-function render() {
-    let contentRef = document.getElementById('gallery-content');
-    contentRef.innerHTML = ''; // Zuerst alle vorhandenen Elemente entfernen
+// Filter-Funktion für Albumwechsel
+function renderFiltered(albumIndex) {
+    currentAlbum = albumIndex;
     
-    for (let index = 0; index < arrPicture.length; index++) {
-        contentRef.innerHTML += getNotesTemplate(index, arrPicture, arrDescription);
-    }
+    let pictures = albumIndex === 1 ? randomPicture : randomPictureSecond;
+    let descriptions = albumIndex === 1 ? randomDescription : randomDescriptionSecond;
+    
+    render(pictures, descriptions);
 }
 
-// Template-Funktion
-function getNotesTemplate(index) {
+// Render-Funktion für die Galerie
+function render(pictures, descriptions) {
+    let contentRef = document.getElementById('gallery-content');
+    contentRef.innerHTML = '';
+    
+    pictures.forEach((picture, index) => {
+        contentRef.innerHTML += getNotesTemplate(index, picture, descriptions[index]);
+    });
+    
+    updateItems();
+}
+
+// Template-Funktion für Galerie-Elemente
+function getNotesTemplate(index, picture, description) {
     return `<div class="gallery-item">
-            <img src="${arrPicture[index]}" alt="${arrDescription[index]}">
-            <span class="image-details">${arrDescription[index]}</span>
-        </div>`
+                <img src="${picture}" alt="${description}">
+                <span class="image-details">${description}</span>
+            </div>`;
 }
 
-// Event Listener für DOMContentLoaded für Overlay
+// Funktion zum Aktualisieren der items-Liste
+function updateItems() {
+    items = Array.from(document.querySelectorAll('#gallery-content .gallery-item'));
+    currentIndex = 0;
+}
+
+// Event Listener für DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
-    render(); // Galerie zuerst rendern
+    initializeGallery(); // Galerie zuerst rendern
     
     const gallery = document.querySelector('.gallery');
     const overlay = document.getElementById('overlay');
@@ -119,11 +116,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const prevButton = document.querySelector('.prev');
     const nextButton = document.querySelector('.next');
     const pagination = document.querySelector('.pagination');
-    
-    // Erst nach dem Rendering die items-Variable initialisieren
-    const items = Array.from(document.querySelectorAll('#gallery-content .gallery-item'));
-    
-    let currentIndex = 0;
+
+    // Album-Wechsel Event Listener
+    document.querySelectorAll('.album-switch').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const albumIndex = parseInt(e.target.dataset.album);
+            renderFiltered(albumIndex);
+        });
+    });
 
     // Klick auf Galerie-Bilder
     gallery.addEventListener('click', function (e) {
@@ -131,9 +131,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!item) return;
         
         currentIndex = items.indexOf(item);
-        
         const img = item.querySelector('img');
         const details = item.querySelector('.image-details');
+        
         overlay.querySelector('img').src = img.src;
         overlay.querySelector('.details').textContent = details.textContent;
         updatePagination();
@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const item = items[currentIndex];
         const img = item.querySelector('img');
         const details = item.querySelector('.image-details');
+        
         overlay.querySelector('img').src = img.src;
         overlay.querySelector('.details').textContent = details.textContent;
         updatePagination();
@@ -171,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Tastatur-Navigation
     document.addEventListener('keydown', function (e) {
         if (overlay.style.display !== 'block') return;
+        
         switch (e.key) {
             case 'ArrowLeft':
                 showPrevImage();
