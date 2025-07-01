@@ -1,5 +1,6 @@
     @import url(norm.css);
     @import url(gallery.css);
+    @import url(responsive.css);
 
     * {
         /* Farben */
@@ -87,4 +88,8 @@
         padding: 8px 16px;
         width: 100%;
         background-color: rgb(175, 175, 175);
+    }
+
+    .d-none {
+        display: none;
     }
