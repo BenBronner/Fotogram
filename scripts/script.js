@@ -56,7 +56,7 @@ let randomDescriptionSecond = [
     "Mochlos Beach",
     "Blick auf Mochlos",
     "Taverna Bogazi - Mochlos",
-    "Taverna Hemezzo - Mochlos",
+    "Taverna Remezzo - Mochlos",
     "Hemezzo - Mochlos"
 ];
 
