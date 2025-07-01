@@ -46,18 +46,18 @@ let randomPictureSecond = [
 ];
 
 let randomDescriptionSecond = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10",
-    "11",
-    "12"
+    "Laguna Beach",
+    "Aposelemi Beach",
+    "Agios-Titos-Kathedrale",
+    "Festung Koules",
+    "Hafen von Heraklion",
+    "Hafen von Heraklion",
+    "Mochlos Islet (Psillos)",
+    "Mochlos Beach",
+    "Blick auf Mochlos",
+    "Taverna Bogazi - Mochlos",
+    "Taverna Hemezzo - Mochlos",
+    "Hemezzo - Mochlos"
 ];
 
 // Filter für Alben
