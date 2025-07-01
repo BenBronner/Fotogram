@@ -97,3 +97,9 @@ zeichen aus q*/ q:before,
 q:after {
     content: '';
 }
+
+a:any-link {
+    color: #30707a;
+    text-decoration-line: underline;
+    cursor: auto;
+}

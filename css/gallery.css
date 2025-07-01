@@ -1,6 +1,29 @@
 .center {
-    
     min-height: 100vh;
+}
+
+.filter-items {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.filter-items a:link {
+    background-color: var(--primaryColor);
+    color: #30707a;
+    border: 1px solid;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.filter-items a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.filter-items span {
+    font-size: 24px;
 }
 
 .gallery {

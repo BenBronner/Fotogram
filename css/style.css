@@ -3,13 +3,13 @@
 
     * {
         /* Farben */
-    --primaryColor: #0F232D;
-    --secondaryColor: #091720;
-    --textColor: #ffffff;
+        --primaryColor: #0F232D;
+        --secondaryColor: #091720;
+        --textColor: #ffffff;
     }
-    
-    
-    
+
+
+
     header {
         color: var(--textColor);
         padding: 8px 24px;
@@ -52,7 +52,7 @@
     .logo {
         width: 180px;
     }
-    
+
     main {
         display: flex;
         justify-content: center;
@@ -64,7 +64,7 @@
     }
 
     .content {
-        max-width: 1440px;
+        max-width: 1400px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -79,7 +79,7 @@
         text-align: center;
         margin-bottom: 0px;
     }
-    
+
     nav {
         color: rgb(34, 32, 38);
         padding: 8px 16px;
