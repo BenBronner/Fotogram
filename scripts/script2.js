@@ -126,7 +126,7 @@ function updateImage() {
 document.addEventListener('DOMContentLoaded', function() {
     initializeGallery();
     
-    // Event Delegation für alle Klicks
+    // Event für alle Klicks
     document.addEventListener('click', function(e) {
         const target = e.target;
         
