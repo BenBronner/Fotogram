@@ -52,13 +52,23 @@
     }
 }
 
+@media(max-width: 414px) {
+    .content {
+        margin-top: 100px;
+    }
+
+    .gallery-item {
+        max-width: 100%;
+    }
+}
+
 @media(max-width: 375px) {
     .content {
         margin-top: 100px;
     }
 
     .gallery-item {
-        max-width: 153px;
+        max-width: 100%;
     }
 }
 
