@@ -113,13 +113,21 @@
         background-color: rgb(175, 175, 175);
     }
 
+    #album-select {
+        height: 30px;
+        padding: 5px;
+        background-color: var(--primaryColor);
+        color: white;
+        border-radius: 5px;
+    }
+
     .d-none {
         display: none;
     }
 
     @media(max-width: 1080px) {
         main {
-            margin: 64px 0px 64px 0px;
+            margin: 80px 0px 90px 0px;
         }
     }
 

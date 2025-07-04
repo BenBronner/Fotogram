@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Fotogram</title>
 </head>
-
 <body>
     <div class="header-content">
         <header>
@@ -18,22 +16,21 @@
             <div></div>
         </header>
     </div>
-
     <main class="center">
         <div class="content">
             <h1>Ben's Fotoseite</h1>
-
             <div class="gallery">
                 <div class="filter-items">
                     <span>Fotoalben:</span>
-                    <a href="#" onclick="renderFiltered(1)">Wildpark Poing</a>
-                    <a href="#" onclick="renderFiltered(2)">Kreta</a>
+                    <select id="album-select">
+                        <option value="1">Wildpark Poing</option>
+                        <option value="2">Kreta</option>
+                    </select>
                 </div>
                 <div id="gallery-content">
-                    <!-- Bilder werden automatisch genneriert -->
+                    <!-- Bilder werden automatisch generiert -->
                 </div>
             </div>
-
             <div id="overlay" class="overlay">
                 <div class="overlay-content">
                     <p class="details"></p>
@@ -47,7 +44,6 @@
                 </div>
             </div>
         </div>
-        </div>
     </main>
     <div class="footer-content">
         <footer>
@@ -57,16 +53,13 @@
             <span>© Copyright 2025 | Ben Bronner</span>
             <div class="social-icons">
                 <a href="https://www.facebook.com/" target="_blank"><img src="./img/facebook_white.png"
-                        alt="Facebook"></a>
+                    alt="Facebook"></a>
                 <a href="https://www.instagram.com/" target="_blank"><img src="./img/instagram_white.png"
-                        alt="Instagram"></a>
+                    alt="Instagram"></a>
                 <a href="https://x.com/" target="_blank"><img src="./img/twitter_white.png" alt="X"></a>
-
-
             </div>
         </footer>
     </div>
-    <script src="./scripts/script2.js"></script>
+    <script src="./scripts/script.js"></script>
 </body>
-
 </html>

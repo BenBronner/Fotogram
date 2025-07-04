@@ -1,4 +1,4 @@
-// Arrays für Bilder und Beschreibungen 'Wildpark Poing'
+// Arrays für Bilder und Beschreibungen
 let randomPicture = [
     'img/wildpark_poing/Reh.JPG',
     'img/wildpark_poing/_DSC0047.JPG',
@@ -60,41 +60,18 @@ let randomDescriptionSecond = [
     "Taverna Remezzo - Außenbereich"
 ];
 
-// Globale Variablen für die Galerie
-let currentAlbum = 1; // Aktuelles Album (1 = Wildpark Poing, 2 = Kreta)
-let items = []; // Liste aller Galerie-Elemente
-let currentIndex = 0; // Aktuelles Bild im Overlay
+// Globale Variablen
+let currentAlbum = 1;
+let items = [];
+let currentIndex = 0;
 
-// Initialisierungsfunktion
-function initializeGallery() {
-    renderFiltered(1); // Standardalbum laden
-}
-
-// Filter-Funktion für Albumwechsel
-function renderFiltered(albumIndex) {
-    currentAlbum = albumIndex;
-    
-    let pictures = albumIndex === 1 ? randomPicture : randomPictureSecond;
-    let descriptions = albumIndex === 1 ? randomDescription : randomDescriptionSecond;
-    
-    render(pictures, descriptions);
-}
-
-// Render-Funktion für die Galerie
-function render(pictures, descriptions) {
-    let contentRef = document.getElementById('gallery-content');
-    contentRef.innerHTML = '';
-    
-    pictures.forEach((picture, index) => {
-        contentRef.innerHTML += getNotesTemplate(index, picture, descriptions[index]);
-    });
-    
-    updateItems();
-}
+// Initialisierung
+initializeGallery();
 
 // Template-Funktion für Galerie-Elemente
 function getNotesTemplate(index, picture, description) {
-    return `<div class="gallery-item">
+    return `<div class="gallery-item" data-index="${index}"
+             onclick="selectImage(${index})">
                 <img src="${picture}" alt="${description}">
                 <span class="image-details">${description}</span>
             </div>`;
@@ -106,94 +83,75 @@ function updateItems() {
     currentIndex = 0;
 }
 
-// Event Listener für DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function () {
-    initializeGallery(); // Galerie zuerst rendern
-    
-    const gallery = document.querySelector('.gallery');
-    const overlay = document.getElementById('overlay');
-    const closeButton = document.querySelector('.close-button');
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    const pagination = document.querySelector('.pagination');
+// Bild-Auswahl Funktion
+function selectImage(index) {
+    currentIndex = index;
+    updateImage();
+    document.getElementById('overlay').style.display = 'block';
 
-    // Album-Wechsel Event Listener
-    document.querySelectorAll('.album-switch').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const albumIndex = parseInt(e.target.dataset.album);
-            renderFiltered(albumIndex);
-        });
-    });
-
-    // Klick auf Galerie-Bilder
-    gallery.addEventListener('click', function (e) {
-        const item = e.target.closest('#gallery-content .gallery-item');
-        if (!item) return;
-        
-        currentIndex = items.indexOf(item);
-        const img = item.querySelector('img');
-        const details = item.querySelector('.image-details');
-        
-        overlay.querySelector('img').src = img.src;
-        overlay.querySelector('.details').textContent = details.textContent;
-        updatePagination();
-        overlay.style.display = 'block';
-    });
-
-    // Navigation-Funktionen
-    function updatePagination() {
-        pagination.textContent = `Foto ${currentIndex + 1} von ${items.length}`;
-    }
-
-    function showNextImage() {
-        currentIndex = (currentIndex + 1) % items.length;
-        updateImage();
-    }
-
-    function showPrevImage() {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        updateImage();
-    }
-
-    function updateImage() {
-        const item = items[currentIndex];
-        const img = item.querySelector('img');
-        const details = item.querySelector('.image-details');
-        
-        overlay.querySelector('img').src = img.src;
-        overlay.querySelector('.details').textContent = details.textContent;
-        updatePagination();
-    }
-
-    // Event Listener für Navigation
-    prevButton.addEventListener('click', showPrevImage);
-    nextButton.addEventListener('click', showNextImage);
-
-    // Tastatur-Navigation
-    document.addEventListener('keydown', function (e) {
-        if (overlay.style.display !== 'block') return;
-        
-        switch (e.key) {
-            case 'ArrowLeft':
-                showPrevImage();
-                break;
-            case 'ArrowRight':
-                showNextImage();
-                break;
-            case 'Escape':
-                overlay.style.display = 'none';
-                break;
+    // Overlay schließen wenn man drauf klickt
+    document.getElementById('overlay').onclick = function (event) {
+        if (event.target.id === 'overlay') {
+            this.style.display = 'none';
         }
+    };
+}
+
+// Navigation-Funktionen
+function showNextImage() {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateImage();
+}
+
+function showPrevImage() {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    updateImage();
+}
+
+function updateImage() {
+    const item = items[currentIndex];
+    const img = item.querySelector('img');
+    const details = item.querySelector('.image-details');
+    document.querySelector('#overlay img').src = img.src;
+    document.querySelector('#overlay .details').textContent = details.textContent;
+    document.querySelector('.pagination').textContent = `Foto ${currentIndex + 1} von ${items.length}`;
+}
+
+// Initialisierungsfunktion
+function initializeGallery() {
+    renderFiltered(currentAlbum);
+}
+
+// Filter-Funktion für Albumwechsel
+function renderFiltered(albumIndex) {
+    currentAlbum = albumIndex;
+    let pictures = albumIndex === 1 ? randomPicture : randomPictureSecond;
+    let descriptions = albumIndex === 1 ? randomDescription : randomDescriptionSecond;
+    render(pictures, descriptions);
+}
+
+// Render-Funktion für die Galerie
+function render(pictures, descriptions) {
+    const contentRef = document.getElementById('gallery-content');
+    contentRef.innerHTML = '';
+
+    pictures.forEach((picture, index) => {
+        contentRef.innerHTML += getNotesTemplate(index, picture, descriptions[index]);
     });
 
-    // Schließen des Overlays
-    closeButton.addEventListener('click', () => {
-        overlay.style.display = 'none';
-    });
+    updateItems();
+}
 
-    overlay.addEventListener('click', function (e) {
-        if (e.target === overlay) {
-            overlay.style.display = 'none';
-        }
-    });
-});
+// Album-Auswahl über Select-Element
+document.getElementById('album-select').onchange = function (e) {
+    renderFiltered(parseInt(e.target.value));
+};
+
+// Navigation-Funktionen als onclick Handler
+document.querySelector('.next').onclick = showNextImage;
+document.querySelector('.prev').onclick = showPrevImage;
+
+// Overlay schließen
+document.querySelector('.close-button').onclick = function () {
+    document.getElementById('overlay').style.display = 'none';
+};
