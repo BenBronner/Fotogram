@@ -93,3 +93,30 @@
     .d-none {
         display: none;
     }
+
+    @media(max-width: 375px) {
+        footer {
+            color: var(--textColor);
+            padding: 8px 24px;
+            width: 100%;
+            background-color: var(--primaryColor);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: static;
+            bottom: 0px;
+        }
+    }
+
+    @media(max-width: 320px) {
+        .logo {
+            width: 120px;
+            cursor: pointer;
+        }
+
+        .social-icons img {
+            height: 18px;
+            cursor: pointer;
+        }
+    }

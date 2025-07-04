@@ -57,7 +57,7 @@ let randomDescriptionSecond = [
     "Blick auf Mochlos",
     "Taverna Bogazi - Mochlos",
     "Taverna Remezzo - Mochlos",
-    "Hemezzo - Mochlos"
+    "Taverna Remezzo - Außenbereich"
 ];
 
 // Globale Variablen für die Galerie
